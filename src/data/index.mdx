@@ -1,0 +1,63 @@
+# Entroca
+
+*Next-Generation, Bare-Metal Caching for the Performance-Critical*  
+
+Entroca is an experimental, high-performance key-value store designed for developers who demand maximum control over their caching layer. Built in Zig with a shared-nothing architecture, it prioritizes raw speed, minimal overhead, and compile-time customization—at the cost of convenience.  
+
+## Why Entroca Exists
+
+Modern caches often abstract too much. Entroca flips the script: it’s a *collaboration* between developers and infrastructure. Clients handle hashing and port routing directly, while the server focuses on doing one thing exceptionally well: storing and retrieving data with near-zero runtime fluff.  
+
+### Core Philosophy
+- **No magic, no bloat**: Clients manage hashing/port selection; the server does *exactly* what you tell it.  
+- **Batteries-removed**: Configure memory allocation, key/value types, and eviction logic at compile time.  
+- **Shared-nothing design**: Thread-per-port isolation eliminates lock contention entirely.  
+
+---
+
+## What Makes It Different
+
+### ✅ Thermodynamic Eviction
+Forget LRU/LFU. Our experimental temperature-based system uses probability and thermodynamics to auto-balance hot/cold data with minimal overhead.  
+
+### ✅ Client-Driven Architecture
+You control hashing and port routing. The server stays lean—no internal hashing, no dynamic thread management.  
+
+### ✅ Compile-Time Specialization (*Planned*)
+Leverage Zig’s `comptime` to strip out unneeded logic. Want fixed-size keys? Preallocated buffers? Build a cache binary tailored to *your* data.  
+
+### ✅ Memory That Listens (*Planned*)  
+A custom multi-layered bitmap allocator is in development to reduce fragmentation and outpace general-purpose allocators.  
+
+---
+
+## Current State
+
+### What works today:  
+- [x] Dynamic key/value handling  
+- [x] Thermodynamic eviction prototype  
+
+### What’s coming:  
+- [ ] Basic TCP protocol with config handshake  
+- [ ] Compile-time configuration (fixed vs. dynamic keys/values)  
+- [ ] Custom allocator for reduced fragmentation  
+- [ ] Extended TTL resolution controls  
+- [ ] Formal protocol specification  
+
+---
+
+## Who It’s For  
+
+### Consider Entroca if you:
+- Need a cache that *does less* to do more.  
+- Have predictable data patterns and want to bake constraints into the binary.  
+- Are willing to trade convenience for single-digit microsecond latencies.  
+
+### Avoid if you:
+- Need turnkey solutions or Redis-style features.  
+- Aren’t ready to compile your own cache binary.  
+- Prefer safety over raw performance.  
+
+---
+
+*“For those who’d rather rebuild the wheel than carry spare tires.”*  
